@@ -1,0 +1,33 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 68fb1aa097bda9d6a6cebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-22T20:31:19.736+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use Bakeryshop
+switched to db Bakeryshop
+Bakeryshop> db.Orders.insert({ name:"Alice Johnson", item:"chocolate cake",quantity:"2",price:"500"})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('68fb1b0597bda9d6a6cebea4') }
+}
+Bakeryshop> show collections
+Orders
+Bakeryshop> db.dropcollections()
+TypeError: db.dropcollections is not a function
+Bakeryshop> db.Orders.drop()
+true
+Bakeryshop> db.dropDatabase()
+{ ok: 1, dropped: 'Bakeryshop' }
+Bakeryshop>

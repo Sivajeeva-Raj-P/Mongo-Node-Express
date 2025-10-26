@@ -1,0 +1,83 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 68fdbb735105558bebcebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-22T20:31:19.736+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use EventTracker
+switched to db EventTracker
+EventTracker> var d1 = new Date()
+
+EventTracker> db.UpcomingEvents.insertOne({ Name:"Music Fest",date: d1, isfreeentry: "false" , ticketprice: 299.99, performers:[ "DJ Max","Live Band"], Location: {     city: "Chennai" , venue:"Beach Arena" }, specialcode: null })
+{
+  acknowledged: true,
+  insertedId: ObjectId('68fdbcd35105558bebcebea4')
+}
+EventTracker> show collections
+UpcomingEvents
+EventTracker> db.UpcomingEvents.find().pretty()
+[
+  {
+    _id: ObjectId('68fdbcd35105558bebcebea4'),
+    Name: 'Music Fest',
+    date: ISODate('2025-10-26T06:11:52.523Z'),
+    isfreeentry: 'false',
+    ticketprice: 299.99,
+    performers: [ 'DJ Max', 'Live Band' ],
+    Location: { city: 'Chennai', venue: 'Beach Arena' },
+    specialcode: null
+  }
+EventTracker> db.UpcomingEvents.insertMany([{ Name:"Dance Fest" , date:d1, isfreeentry: "false", ticketprice:200 , performers:["Shanthi","Kala"], Location:{city:         "Chennai", Venue: "Stage1" }, specialcode:null }, {Name:"Monoact",date:d1, isfreeentry:"false",ticketprice: 150, performers:["Amarnath","Aravind"], Location:{ city: "Chennai",Venue:"Stage2" }, specialcode:null}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68fdc07d5105558bebcebea5'),
+    '1': ObjectId('68fdc07d5105558bebcebea6')
+  }
+}
+EventTracker> show collections
+UpcomingEvents
+EventTracker> db.UpcomingEvents.find().pretty()
+[
+  {
+    _id: ObjectId('68fdbcd35105558bebcebea4'),
+    Name: 'Music Fest',
+    date: ISODate('2025-10-26T06:11:52.523Z'),
+    isfreeentry: 'false',
+    ticketprice: 299.99,
+    performers: [ 'DJ Max', 'Live Band' ],
+    Location: { city: 'Chennai', venue: 'Beach Arena' },
+    specialcode: null
+  },
+  {
+    _id: ObjectId('68fdc07d5105558bebcebea5'),
+    Name: 'Dance Fest',
+    date: ISODate('2025-10-26T06:11:52.523Z'),
+    isfreeentry: 'false',
+    ticketprice: 200,
+    performers: [ 'Shanthi', 'Kala' ],
+    Location: { city: 'Chennai', Venue: 'Stage1' },
+    specialcode: null
+  },
+  {
+    _id: ObjectId('68fdc07d5105558bebcebea6'),
+    Name: 'Monoact',
+    date: ISODate('2025-10-26T06:11:52.523Z'),
+    isfreeentry: 'false',
+    ticketprice: 150,
+    performers: [ 'Amarnath', 'Aravind' ],
+    Location: { city: 'Chennai', Venue: 'Stage2' },
+    specialcode: null
+  }
+]
+EventTracker>
