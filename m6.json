@@ -1,0 +1,318 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 68ff7a91f4f62ac1edcebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-27T08:10:56.824+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use BookStoreDB
+switched to db BookStoreDB
+BookStoreDB> db.Books.insertMany([ {title:"Harry Potter and Philosophers stone",author: "JK Rowling",price:399.99,year:1937,available:true},{title:"the hobbit",author:"JRR Tokien",price: 299.99,year:1997,available:true},{title:"the davincicode",author:"danbrown",year:2003,price:499.99,available:false},{title:"game of thrones",author:"george.RR Martin",price:599.99,year:1996,available:true},{title:"girl on the train",author:"Paula Hawkins",price:349.99,year:2015,available:true},{title:"becoming",      author:"michelle Obama",price:449.99,year:2018,available:true},{title:"catcher in the eye",author:"jd salinger",price: 199.99,year:1951, available:false},{title:"night circus",author:
+... "erin morngsten",price:299.99,year:2011,available:true},{title:"1984",author:"george orwell",year:1949,price:249.99,available:true},{title:"educated",author:"tara westover",price: 399.99,year:2018,available:false} ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68ff7e12f4f62ac1edcebea4'),
+    '1': ObjectId('68ff7e12f4f62ac1edcebea5'),
+    '2': ObjectId('68ff7e12f4f62ac1edcebea6'),
+    '3': ObjectId('68ff7e12f4f62ac1edcebea7'),
+    '4': ObjectId('68ff7e12f4f62ac1edcebea8'),
+    '5': ObjectId('68ff7e12f4f62ac1edcebea9'),
+    '6': ObjectId('68ff7e12f4f62ac1edcebeaa'),
+    '7': ObjectId('68ff7e12f4f62ac1edcebeab'),
+    '8': ObjectId('68ff7e12f4f62ac1edcebeac'),
+    '9': ObjectId('68ff7e12f4f62ac1edcebead')
+  }
+}
+BookStoreDB> db.Books.find({ "price":{$lt:500} }).pretty()
+[
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea4'),
+    title: 'Harry Potter and Philosophers stone',
+    author: 'JK Rowling',
+    price: 399.99,
+    year: 1937,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea5'),
+    title: 'the hobbit',
+    author: 'JRR Tokien',
+    price: 299.99,
+    year: 1997,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea6'),
+    title: 'the davincicode',
+    author: 'danbrown',
+    year: 2003,
+    price: 499.99,
+    available: false
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea8'),
+    title: 'girl on the train',
+    author: 'Paula Hawkins',
+    price: 349.99,
+    year: 2015,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea9'),
+    title: 'becoming',
+    author: 'michelle Obama',
+    price: 449.99,
+    year: 2018,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebeaa'),
+    title: 'catcher in the eye',
+    author: 'jd salinger',
+    price: 199.99,
+    year: 1951,
+    available: false
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebeab'),
+    title: 'night circus',
+    author: 'erin morngsten',
+    price: 299.99,
+    year: 2011,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebeac'),
+    title: '1984',
+    author: 'george orwell',
+    year: 1949,
+    price: 249.99,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebead'),
+    title: 'educated',
+    author: 'tara westover',
+    price: 399.99,
+    year: 2018,
+    available: false
+  }
+]
+BookStoreDB> db.Books.findOne({ author:"JK Rowling" })
+{
+  _id: ObjectId('68ff7e12f4f62ac1edcebea4'),
+  title: 'Harry Potter and Philosophers stone',
+  author: 'JK Rowling',
+  price: 399.99,
+  year: 1937,
+  available: true
+}
+BookStoreDB> db.Books.find({ "year":{$gt:2010}, "price":{$gt:300} })
+[
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea8'),
+    title: 'girl on the train',
+    author: 'Paula Hawkins',
+    price: 349.99,
+    year: 2015,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea9'),
+    title: 'becoming',
+    author: 'michelle Obama',
+    price: 449.99,
+    year: 2018,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebead'),
+    title: 'educated',
+    author: 'tara westover',
+    price: 399.99,
+    year: 2018,
+    available: false
+  }
+]
+BookStoreDB> db.Books.find({ "price":{$lt:200}, "available":false })
+[
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebeaa'),
+    title: 'catcher in the eye',
+    author: 'jd salinger',
+    price: 199.99,
+    year: 1951,
+    available: false
+  }
+]
+BookStoreDB> db.Books.find({$or:[ { "price":{$lt:200}} , {"available":false} ]})
+[
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea6'),
+    title: 'the davincicode',
+    author: 'danbrown',
+    year: 2003,
+    price: 499.99,
+    available: false
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebeaa'),
+    title: 'catcher in the eye',
+    author: 'jd salinger',
+    price: 199.99,
+    year: 1951,
+    available: false
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebead'),
+    title: 'educated',
+    author: 'tara westover',
+    price: 399.99,
+    year: 2018,
+    available: false
+  }
+]
+BookStoreDB> db.Books.find({ "price":{$ne:450} })
+[
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea4'),
+    title: 'Harry Potter and Philosophers stone',
+    author: 'JK Rowling',
+    price: 399.99,
+    year: 1937,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea5'),
+    title: 'the hobbit',
+    author: 'JRR Tokien',
+    price: 299.99,
+    year: 1997,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea6'),
+    title: 'the davincicode',
+    author: 'danbrown',
+    year: 2003,
+    price: 499.99,
+    available: false
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea7'),
+    title: 'game of thrones',
+    author: 'george.RR Martin',
+    price: 599.99,
+    year: 1996,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea8'),
+    title: 'girl on the train',
+    author: 'Paula Hawkins',
+    price: 349.99,
+    year: 2015,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebea9'),
+    title: 'becoming',
+    author: 'michelle Obama',
+    price: 449.99,
+    year: 2018,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebeaa'),
+    title: 'catcher in the eye',
+    author: 'jd salinger',
+    price: 199.99,
+    year: 1951,
+    available: false
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebeab'),
+    title: 'night circus',
+    author: 'erin morngsten',
+    price: 299.99,
+    year: 2011,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebeac'),
+    title: '1984',
+    author: 'george orwell',
+    year: 1949,
+    price: 249.99,
+    available: true
+  },
+  {
+    _id: ObjectId('68ff7e12f4f62ac1edcebead'),
+    title: 'educated',
+    author: 'tara westover',
+    price: 399.99,
+    year: 2018,
+    available: false
+  }
+]
+BookStoreDB>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

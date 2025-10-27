@@ -1,0 +1,424 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 68ff6f74f331bae02acebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-27T08:10:56.824+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use Records
+switched to db Records
+Records> db.Products.insertMany([ {productname:"galaxys21",category:"smartphones",price:799.99 , stock:10 , discountAvailable:true},{productname:"iphones13",category:"smartphones",price: 999.99 ,stock:8, discountAvailable:false },{productname:"dellXps13",category:"laptop",price:1299.99,stock:6,discountAvailable:true},{productname:"HPspectre",category:"laptops",price:1499.99,stock:6,discountAvailiable:false},{productname:"Sony headphones",category:"Accessories",price:199.99,stock:15,discountAvailable:true},{productname:"Logitech mouse",category:"Accessories",price:49.99,stock:20,discountAvailable:true},{productname:"macbook",category:"laptops",price:999.99,stock:7,discountAvailable:true},{productname:"samsungtablet",category:"tablets",price:299.99,stock:12,discountAvailable:false},{productname:"smartwatch",category:"wearable",price:249.99,stock:5,discountAvailable:true},{productname:"gamingmonitors",category:"monitors",price:399.99,stock:4,discountAvailable:false} ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68ff758bf331bae02acebea4'),
+    '1': ObjectId('68ff758bf331bae02acebea5'),
+    '2': ObjectId('68ff758bf331bae02acebea6'),
+    '3': ObjectId('68ff758bf331bae02acebea7'),
+    '4': ObjectId('68ff758bf331bae02acebea8'),
+    '5': ObjectId('68ff758bf331bae02acebea9'),
+    '6': ObjectId('68ff758bf331bae02acebeaa'),
+    '7': ObjectId('68ff758bf331bae02acebeab'),
+    '8': ObjectId('68ff758bf331bae02acebeac'),
+    '9': ObjectId('68ff758bf331bae02acebead')
+  }
+}
+Records> db.Products.find()
+[
+  {
+    _id: ObjectId('68ff758bf331bae02acebea4'),
+    productname: 'galaxys21',
+    category: 'smartphones',
+    price: 799.99,
+    stock: 10,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea5'),
+    productname: 'iphones13',
+    category: 'smartphones',
+    price: 999.99,
+    stock: 8,
+    discountAvailable: false
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea6'),
+    productname: 'dellXps13',
+    category: 'laptop',
+    price: 1299.99,
+    stock: 6,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea7'),
+    productname: 'HPspectre',
+    category: 'laptops',
+    price: 1499.99,
+    stock: 6,
+    discountAvailiable: false
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea8'),
+    productname: 'Sony headphones',
+    category: 'Accessories',
+    price: 199.99,
+    stock: 15,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea9'),
+    productname: 'Logitech mouse',
+    category: 'Accessories',
+    price: 49.99,
+    stock: 20,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeaa'),
+    productname: 'macbook',
+    category: 'laptops',
+    price: 999.99,
+    stock: 7,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeab'),
+    productname: 'samsungtablet',
+    category: 'tablets',
+    price: 299.99,
+    stock: 12,
+    discountAvailable: false
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeac'),
+    productname: 'smartwatch',
+    category: 'wearable',
+    price: 249.99,
+    stock: 5,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebead'),
+    productname: 'gamingmonitors',
+    category: 'monitors',
+    price: 399.99,
+    stock: 4,
+    discountAvailable: false
+  }
+]
+Records> db.Products.find({"price":{$lt:1000} }).pretty()
+[
+  {
+    _id: ObjectId('68ff758bf331bae02acebea4'),
+    productname: 'galaxys21',
+    category: 'smartphones',
+    price: 799.99,
+    stock: 10,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea5'),
+    productname: 'iphones13',
+    category: 'smartphones',
+    price: 999.99,
+    stock: 8,
+    discountAvailable: false
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea8'),
+    productname: 'Sony headphones',
+    category: 'Accessories',
+    price: 199.99,
+    stock: 15,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea9'),
+    productname: 'Logitech mouse',
+    category: 'Accessories',
+    price: 49.99,
+    stock: 20,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeaa'),
+    productname: 'macbook',
+    category: 'laptops',
+    price: 999.99,
+    stock: 7,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeab'),
+    productname: 'samsungtablet',
+    category: 'tablets',
+    price: 299.99,
+    stock: 12,
+    discountAvailable: false
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeac'),
+    productname: 'smartwatch',
+    category: 'wearable',
+    price: 249.99,
+    stock: 5,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebead'),
+    productname: 'gamingmonitors',
+    category: 'monitors',
+    price: 399.99,
+    stock: 4,
+    discountAvailable: false
+  }
+]
+Records> db.Products.findOne({ category:"smartphones" })
+{eferenceError: smartphones is not defined
+  _id: ObjectId('68ff758bf331bae02acebea4'),
+  productname: 'galaxys21',
+  category: 'smartphones',
+  price: 799.99,
+  stock: 10,
+  discountAvailable: true
+}
+Records> db.Products.find({ category:"laptops" , "stock":{$gte:5} })
+[
+  {
+    _id: ObjectId('68ff758bf331bae02acebea7'),
+    productname: 'HPspectre',
+    category: 'laptops',
+    price: 1499.99,
+    stock: 6,
+    discountAvailiable: false
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeaa'),
+    productname: 'macbook',
+    category: 'laptops',
+    price: 999.99,
+    stock: 7,
+    discountAvailable: true
+  }
+]
+Records> db.Products.find({ $or: [{"price":{$lt:300}} , {"discountAvailable":true}] })
+[
+  {
+    _id: ObjectId('68ff758bf331bae02acebea4'),
+    productname: 'galaxys21',
+    category: 'smartphones',
+    price: 799.99,
+    stock: 10,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea6'),
+    productname: 'dellXps13',
+    category: 'laptop',
+    price: 1299.99,
+    stock: 6,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea8'),
+    productname: 'Sony headphones',
+    category: 'Accessories',
+    price: 199.99,
+    stock: 15,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea9'),
+    productname: 'Logitech mouse',
+    category: 'Accessories',
+    price: 49.99,
+    stock: 20,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeaa'),
+    productname: 'macbook',
+    category: 'laptops',
+    price: 999.99,
+    stock: 7,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeab'),
+    productname: 'samsungtablet',
+    category: 'tablets',
+    price: 299.99,
+    stock: 12,
+    discountAvailable: false
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeac'),
+    productname: 'smartwatch',
+    category: 'wearable',
+    price: 249.99,
+    stock: 5,
+    discountAvailable: true
+  }
+]
+Records> db.Products.find({ "price":{$ne:1500} })
+[
+  {
+    _id: ObjectId('68ff758bf331bae02acebea4'),
+    productname: 'galaxys21',
+    category: 'smartphones',
+    price: 799.99,
+    stock: 10,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea5'),
+    productname: 'iphones13',
+    category: 'smartphones',
+    price: 999.99,
+    stock: 8,
+    discountAvailable: false
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea6'),
+    productname: 'dellXps13',
+    category: 'laptop',
+    price: 1299.99,
+    stock: 6,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea7'),
+    productname: 'HPspectre',
+    category: 'laptops',
+    price: 1499.99,
+    stock: 6,
+    discountAvailiable: false
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea8'),
+    productname: 'Sony headphones',
+    category: 'Accessories',
+    price: 199.99,
+    stock: 15,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebea9'),
+    productname: 'Logitech mouse',
+    category: 'Accessories',
+    price: 49.99,
+    stock: 20,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeaa'),
+    productname: 'macbook',
+    category: 'laptops',
+    price: 999.99,
+    stock: 7,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeab'),
+    productname: 'samsungtablet',
+    category: 'tablets',
+    price: 299.99,
+    stock: 12,
+    discountAvailable: false
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebeac'),
+    productname: 'smartwatch',
+    category: 'wearable',
+    price: 249.99,
+    stock: 5,
+    discountAvailable: true
+  },
+  {
+    _id: ObjectId('68ff758bf331bae02acebead'),
+    productname: 'gamingmonitors',
+    category: 'monitors',
+    price: 399.99,
+    stock: 4,
+    discountAvailable: false
+  }
+]
+Records>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
