@@ -1,0 +1,181 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 69020c7cd57c72379acebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-27T08:10:56.824+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use store
+switched to db store
+store> db.Clothes.insertmany([ {name:"denim jeans" , category:"pants" ,price:599.99,stock:20,discount:true},{name:"cotton T-shirt",category:"shirt",price:199.99,stock:15, discount: false},{name:"laetherjacket",category:"jacket",price:999.99,stock:5,discount:true},{name:"formal shirt",category:"shirt",price:349.99,stock:12,discount:true},{name:"cargo pants",category:"pants",price:499.99,stock:10,discount:false},{name:"wool sweater",category:"sweater",price:699.99,stock:8,discount:true},{name:"casual shorts",category:"shorts",price:249.99,stock:25,discount:true},{name:"silk scarf",category:"accessories",stock:0,price:149.99,discount:true},{name:"hooden sweatshirt",catgory:"sweater",price:399.99,stock:18,discount:false},{name:"chinos",category:"pants",price:299.99,stock:11,discount:fasle} ])
+ReferenceError: fasle is not defined
+store> db.Clothes.insertmany([ {name:"denim jeans" , category:"pants" ,price:599.99,stock:20,discount:true},{name:"cotton T-shirt",category:"shirt",price:199.99,stock:15, discount: false},{name:"laetherjacket",category:"jacket",price:999.99,stock:5,discount:true},{name:"formal shirt",category:"shirt",price:349.99,stock:12,discount:true},{name:"cargo pants",category:"pants",price:499.99,stock:10,discount:false},{name:"wool sweater",category:"sweater",price:699.99,stock:8,discount:true},{name:"casual shorts",category:"shorts",price:249.99,stock:25,discount:true},{name:"silk scarf",category:"accessories",stock:0,price:149.99,discount:true},{name:"hooden sweatshirt",catgory:"sweater",price:399.99,stock:18,discount:false},{name:"chinos",category:"pants",price:299.99,stock:11,discount:false} ])
+TypeError: db.Clothes.insertmany is not a function
+store> db.Clothes.insertMany([ {name:"denim jeans" , category:"pants" ,price:599.99,stock:20,discount:true},{name:"cotton T-shirt",category:"shirt",price:199.99,stock:15, discount: false},{name:"laetherjacket",category:"jacket",price:999.99,stock:5,discount:true},{name:"formal shirt",category:"shirt",price:349.99,stock:12,discount:true},{name:"cargo pants",category:"pants",price:499.99,stock:10,discount:false},{name:"wool sweater",category:"sweater",price:699.99,stock:8,discount:true},{name:"casual shorts",category:"shorts",price:249.99,stock:25,discount:true},{name:"silk scarf",category:"accessories",stock:0,price:149.99,discount:true},{name:"hooden sweatshirt",catgory:"sweater",price:399.99,stock:18,discount:false},{name:"chinos",category:"pants",price:299.99,stock:11,discount:false} ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69021016d57c72379acebea4'),
+    '1': ObjectId('69021016d57c72379acebea5'),
+    '2': ObjectId('69021016d57c72379acebea6'),
+    '3': ObjectId('69021016d57c72379acebea7'),
+    '4': ObjectId('69021016d57c72379acebea8'),
+    '5': ObjectId('69021016d57c72379acebea9'),
+    '6': ObjectId('69021016d57c72379acebeaa'),
+    '7': ObjectId('69021016d57c72379acebeab'),
+    '8': ObjectId('69021016d57c72379acebeac'),
+    '9': ObjectId('69021016d57c72379acebead')
+  }
+}
+store> db.find({price:{$gt:500} })
+TypeError: db.find is not a function
+store> db.Clothes.find({price:{$gt:500} })
+[
+  {
+    _id: ObjectId('69021016d57c72379acebea4'),
+    name: 'denim jeans',
+    category: 'pants',
+    price: 599.99,
+    stock: 20,
+    discount: true
+  },
+  {
+    _id: ObjectId('69021016d57c72379acebea6'),
+    name: 'laetherjacket',
+    category: 'jacket',
+    price: 999.99,
+    stock: 5,
+    discount: true
+  },
+  {
+    _id: ObjectId('69021016d57c72379acebea9'),
+    name: 'wool sweater',
+    category: 'sweater',
+    price: 699.99,
+    stock: 8,
+    discount: true
+  }
+]
+store> db.Clothes.findOne({ "category":"shirt"})
+{
+  _id: ObjectId('69021016d57c72379acebea5'),
+  name: 'cotton T-shirt',
+  category: 'shirt',
+  price: 199.99,
+  stock: 15,
+  discount: false
+}
+store> db.Clothes.findOne({ category:"shirt"})
+{
+  _id: ObjectId('69021016d57c72379acebea5'),
+  name: 'cotton T-shirt',
+  category: 'shirt',
+  price: 199.99,
+  stock: 15,
+  discount: false
+}
+store> db.Clothes.find({ $and: [{price:{$lte:300}},{stock:{$gt:10}}] })
+[
+  {
+    _id: ObjectId('69021016d57c72379acebea5'),
+    name: 'cotton T-shirt',
+    category: 'shirt',
+    price: 199.99,
+    stock: 15,
+    discount: false
+  },
+  {
+    _id: ObjectId('69021016d57c72379acebeaa'),
+    name: 'casual shorts',
+    category: 'shorts',
+    price: 249.99,
+    stock: 25,
+    discount: true
+  },
+  {
+    _id: ObjectId('69021016d57c72379acebead'),
+    name: 'chinos',
+    category: 'pants',
+    price: 299.99,
+    stock: 11,
+    discount: false
+  }
+]
+store> db.Clothes.find({ $or: [{price:{$lte:200}},{discount:true}] })
+[
+  {
+    _id: ObjectId('69021016d57c72379acebea4'),
+    name: 'denim jeans',
+    category: 'pants',
+    price: 599.99,
+    stock: 20,
+    discount: true
+  },
+  {
+    _id: ObjectId('69021016d57c72379acebea5'),
+    name: 'cotton T-shirt',
+    category: 'shirt',
+    price: 199.99,
+    stock: 15,
+    discount: false
+  },
+  {
+    _id: ObjectId('69021016d57c72379acebea6'),
+    name: 'laetherjacket',
+    category: 'jacket',
+    price: 999.99,
+    stock: 5,
+    discount: true
+  },
+  {
+    _id: ObjectId('69021016d57c72379acebea7'),
+    name: 'formal shirt',
+    category: 'shirt',
+    price: 349.99,
+    stock: 12,
+    discount: true
+  },
+  {
+    _id: ObjectId('69021016d57c72379acebea9'),
+    name: 'wool sweater',
+    category: 'sweater',
+    price: 699.99,
+    stock: 8,
+    discount: true
+  },
+  {
+    _id: ObjectId('69021016d57c72379acebeaa'),
+    name: 'casual shorts',
+    category: 'shorts',
+    price: 249.99,
+    stock: 25,
+    discount: true
+  },
+  {
+    _id: ObjectId('69021016d57c72379acebeab'),
+    name: 'silk scarf',
+    category: 'accessories',
+    stock: 0,
+    price: 149.99,
+    discount: true
+  }
+]
+store> db.Clothes.updateOne( {name:"denim jeans"},{$set:{stock:50}} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+store> var item = db.Clothes.updateOne( {name:"laetherjacket"},{$set:{price:1200}} )
+
