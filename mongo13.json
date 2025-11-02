@@ -1,0 +1,46 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 69078c257b07c10100cebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+mongosh 2.5.9 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-27T08:10:56.824+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use online store
+switched to db online
+online> db.orders.insertMany([ {orderId:"ORD001",CUSTOMER:"alice Johnson",items:[ {product:"wireless mouse",price:29.99,quantity:2},{product:"bluetooth headphones",price:89.99,quantity:1],orderdate:ISODate("2025-07-01T10:00:00Z"),status:"delivered"},{orderId:"ORD002",CUSTOMER:"bOB SMITH",items:[{product:"Wireless Mouse",price:29.99,quantity:3},{product:"smartwatch",price:199.99, quantity:1}],orderDate:ISODate("2025-07-02T12:30:00Z"),status:"Pending"},{orderId:"ORD003",CUSTOMER:"CHARLIE BROWN",items:[{product:"bluetooth headphones",price:89.99,quantity:2},{product:"tablet X",price:299.99,quantity:1}],orderDate:ISODate("2025-07-03T15:45:00Z"),status:"delivered"},{orderId:"ORD004",CUSTOMER:"DIANA LEE",items:[{product:"Wireless Mouse",price:29.99,quantity:1},{product:"smartwatch",price:199.99,quantity:2}],orderDate:ISODate("2025-07-04T09:15:00Z"),status:"shipped"} ])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:178)
+
+> 1 | db.orders.insertMany([ {orderId:"ORD001",CUSTOMER:"alice Johnson",items:[ {product:"wireless mouse",price:29.99,quantity:2},{product:"bluetooth headphones",price:89.99,quantity:1],orderdate:ISODate("2025-07-01T10:00:00Z"),status:"delivered"},{orderId:"ORD002",CUSTOMER:"bOB SMITH",items:[{product:"Wireless Mouse",price:29.99,quantity:3},{product:"smartwatch",price:199.99, quantity:1}],orderDate:ISODate("2025-07-02T12:30:00Z"),status:"Pending"},{orderId:"ORD003",CUSTOMER:"CHARLIE BROWN",items:[{product:"bluetooth headphones",price:89.99,quantity:2},{product:"tablet X",price:299.99,quantity:1}],orderDate:ISODate("2025-07-03T15:45:00Z"),status:"delivered"},{orderId:"ORD004",CUSTOMER:"DIANA LEE",items:[{product:"Wireless Mouse",price:29.99,quantity:1},{product:"smartwatch",price:199.99,quantity:2}],orderDate:ISODate("2025-07-04T09:15:00Z"),status:"shipped"} ])
+    |                                                                                                                                                                                   ^
+online> db.orders.insertMany([ {orderId:"ORD001",CUSTOMER:"alice Johnson",items:[ {product:"wireless mouse",price:29.99,quantity:2},{product:"bluetooth headphones",price:89.99,quantity:1}],orderdate:ISODate("2025-07-01T10:00:00Z"),status:"delivered"},{orderId:"ORD002",CUSTOMER:"bOB SMITH",items:[{product:"Wireless Mouse",price:29.99,quantity:3},{product:"smartwatch",price:199.99, quantity:1}],orderDate:ISODate("2025-07-02T12:30:00Z"),status:"Pending"},{orderId:"ORD003",CUSTOMER:"CHARLIE BROWN",items:[{product:"bluetooth headphones",price:89.99,quantity:2},{product:"tablet X",price:299.99,quantity:1}],orderDate:ISODate("2025-07-03T15:45:00Z"),status:"delivered"},{orderId:"ORD004",CUSTOMER:"DIANA LEE",items:[{product:"Wireless Mouse",price:29.99,quantity:1},{product:"smartwatch",price:199.99,quantity:2}],orderDate:ISODate("2025-07-04T09:15:00Z"),status:"shipped"} ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('690790ef7b07c10100cebea4'),
+    '1': ObjectId('690790ef7b07c10100cebea5'),
+    '2': ObjectId('690790ef7b07c10100cebea6'),
+    '3': ObjectId('690790ef7b07c10100cebea7')
+  }
+}
+online> db.orders.aggregate([ {$unwind:"$items"}
+... ,{$group:{ _id:"$items.product",totalQuantity:{$sum:"$items.quantity"} }},
+... {$sort:{totalQuantity:-1} },{$project:{_id:0,product:"$_id",totalQuantity:1} } ]);
+[
+  { totalQuantity: 4, product: 'Wireless Mouse' },
+  { totalQuantity: 3, product: 'smartwatch' },
+  { totalQuantity: 3, product: 'bluetooth headphones' },
+  { totalQuantity: 2, product: 'wireless mouse' },
+  { totalQuantity: 1, product: 'tablet X' }
+]
+online>

@@ -1,0 +1,92 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 690763006522919582cebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+mongosh 2.5.9 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-27T08:10:56.824+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use Department
+switched to db Department
+Department> db.employees.insertMany([ {name:"Alice Johnson", department:"Engineering",salary:75000,email:"alicejohnson@gmail.com"},{name:"Bob smith",department:"marketing",salary:65000,email:"bobsmith@company.com"},{name:"charlie brown",department:"Engineering",salary:80000,email:"charliebrown@company.com"},{name:"diana lee",department:"HR",salary:60000,email:"dianalee@company.com"},{name:"emma davis",department:"sales",salary:70000,email:"emmadavis@gmail.com"},{name:"frankwilson",department:"Engineering",salary:82000,email:"frankwilson@comapny.com"},{name:"graceKim",department:"Marketing",salary:68000,email:"gracekim@company.com"},{name:"henrychen",department:"HR",salary:62000,email:"henrychen@company.com"} ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('690764ae6522919582cebea4'),
+    '1': ObjectId('690764ae6522919582cebea5'),
+    '2': ObjectId('690764ae6522919582cebea6'),
+    '3': ObjectId('690764ae6522919582cebea7'),
+    '4': ObjectId('690764ae6522919582cebea8'),
+    '5': ObjectId('690764ae6522919582cebea9'),
+    '6': ObjectId('690764ae6522919582cebeaa'),
+    '7': ObjectId('690764ae6522919582cebeab')
+  }
+}
+Department> db.employees.find( {},{_id:0,name:1,department:1} )
+[
+  { name: 'Alice Johnson', department: 'Engineering' },
+  { name: 'Bob smith', department: 'marketing' },
+  { name: 'charlie brown', department: 'Engineering' },
+  { name: 'diana lee', department: 'HR' },
+  { name: 'emma davis', department: 'sales' },
+  { name: 'frankwilson', department: 'Engineering' },
+  { name: 'graceKim', department: 'Marketing' },
+  { name: 'henrychen', department: 'HR' }
+]
+Department> db.employees.find().limit(4)
+[
+  {
+    _id: ObjectId('690764ae6522919582cebea4'),
+    name: 'Alice Johnson',
+    department: 'Engineering',
+    salary: 75000,
+    email: 'alicejohnson@gmail.com'
+  },
+  {
+    _id: ObjectId('690764ae6522919582cebea5'),
+    name: 'Bob smith',
+    department: 'marketing',
+    salary: 65000,
+    email: 'bobsmith@company.com'
+  },
+  {
+    _id: ObjectId('690764ae6522919582cebea6'),
+    name: 'charlie brown',
+    department: 'Engineering',
+    salary: 80000,
+    email: 'charliebrown@company.com'
+  },
+  {
+    _id: ObjectId('690764ae6522919582cebea7'),
+    name: 'diana lee',
+    department: 'HR',
+    salary: 60000,
+    email: 'dianalee@company.com'
+  }
+]
+Department> db.employees.find( {},{_id:0,name:1,salary:1}).skip(2).limit(3)
+[
+  { name: 'charlie brown', salary: 80000 },
+  { name: 'diana lee', salary: 60000 },
+  { name: 'emma davis' }
+]
+Department> db.employees.find( {},{_id:0,name:1,salary:1}).skip(2).limit(3)
+[
+  { name: 'charlie brown', salary: 80000 },
+  { name: 'diana lee', salary: 60000 },
+  { name: 'emma davis' ,salary:70000}
+]
+Department>
+[
+  { name: 'frankwilson', email: 'frankwilson@comapny.com' },
+  { name: 'graceKim', email: 'gracekim@company.com' }
+Department>

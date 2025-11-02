@@ -1,0 +1,74 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 6907831aaacb9d26aecebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+mongosh 2.5.9 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-27T08:10:56.824+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use online store
+switched to db online
+online> db.products.insertMany([ {name:"Wireless Mouse",category:"Accessories",price:29.99,rating:4.2},{name:"gaming laptop",category:"laptops",price:1499.99,rating:4.8},{name:"smartphone pro",category:"Smartphones",price:999.99,rating:4.5},{name:"bluetooth headphones",category:"Accessories",price:89.99,rating:4.3},{name:"4K monitor",category:"Monitors",price:399.99,rating:4.6},{name:"tablet X",category:"tablets",price:299.99,rating:4.1},{name:"smartwatch",category:"wearables",price:199.99,rating:4.4},{name:"desktop PC",category:"desktops",price:1299.99,rating:4.7},{name:"wireless keyboard",category:"Accessories",price:49.99,rating:4.0},{name:"Ultrabook",category:"laptops",price:1099.99,rating:4.9} ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69078526aacb9d26aecebea4'),
+    '1': ObjectId('69078526aacb9d26aecebea5'),
+    '2': ObjectId('69078526aacb9d26aecebea6'),
+    '3': ObjectId('69078526aacb9d26aecebea7'),
+    '4': ObjectId('69078526aacb9d26aecebea8'),
+    '5': ObjectId('69078526aacb9d26aecebea9'),
+    '6': ObjectId('69078526aacb9d26aecebeaa'),
+    '7': ObjectId('69078526aacb9d26aecebeab'),
+    '8': ObjectId('69078526aacb9d26aecebeac'),
+    '9': ObjectId('69078526aacb9d26aecebead')
+  }
+}
+online> db.products.find({},{_id:0,name:1,price:1})
+[
+  { name: 'Wireless Mouse', price: 29.99 },
+  { name: 'gaming laptop', price: 1499.99 },
+  { name: 'smartphone pro', price: 999.99 },
+  { name: 'bluetooth headphones', price: 89.99 },
+  { name: '4K monitor', price: 399.99 },
+  { name: 'tablet X', price: 299.99 },
+  { name: 'smartwatch', price: 199.99 },
+  { name: 'desktop PC', price: 1299.99 },
+  { name: 'wireless keyboard', price: 49.99 },
+  { name: 'Ultrabook', price: 1099.99 }
+]
+online> db.products.find({},{_id:0,name:1,price:1,category:1}).sort({price:-1}).limit(3)
+[
+  { name: 'gaming laptop', category: 'laptops', price: 1499.99 },
+  { name: 'desktop PC', category: 'desktops', price: 1299.99 },
+  { name: 'Ultrabook', category: 'laptops', price: 1099.99 }
+]
+online> db.find({},{_id:0,name:1,rating:1}).sort({ rating:-1}).skip(5).limit(4)
+TypeError: db.find is not a function
+online> db.products.find({},{_id:0,name:1,rating:1}).sort({ rating:-1}).skip(5).limit(4)
+[
+  { name: 'smartwatch', rating: 4.4 },
+  { name: 'bluetooth headphones', rating: 4.3 },
+  { name: 'Wireless Mouse', rating: 4.2 },
+  { name: 'tablet X', rating: 4.1 }
+]
+online> db.products.distinct("category")
+[
+  'Accessories',
+  'Monitors',
+  'Smartphones',
+  'desktops',
+  'laptops',
+  'tablets',
+  'wearables'
+]
+online>

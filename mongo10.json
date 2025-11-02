@@ -1,0 +1,101 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 69076707c4f0d63b77cebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+mongosh 2.5.9 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-27T08:10:56.824+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use school
+switched to db school
+school> db.Students.insertMany([ {name:"Sarah Johnson",age:20,grade:"A",email:"sarahjohnson@university.com"},{name:"michael chen",age:19,grade:"B+",email:"michel.chen@university.com"},{name:"Emilydavis",age:21,grade:"A-",email:"emilydavis@university.com"},{name:"James Wilson",age:22,grade:"B",email:"jameswilson@university.com"},{name:"Olivia brown",age:20,grade:"A",email:"olivia brown@university.com"},{name:"Liam Taylor",age:23,grade:"C+",email:"liamtaylor@university.com"},{name:"sophia lee",age:19,grade:"A-",email:"sophialee@university.com"},{name:"noah martinez",age:21,grade:"B",email:"noahmartinez@university.com"},{name:"avakim",age:20,grade:"A+",email:"avakim@university.com"},{name:"ethan patel",age:22,grade:"B-",email:"ethanpatel@university.com"} ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('690769ddc4f0d63b77cebea4'),
+    '1': ObjectId('690769ddc4f0d63b77cebea5'),
+    '2': ObjectId('690769ddc4f0d63b77cebea6'),
+    '3': ObjectId('690769ddc4f0d63b77cebea7'),
+    '4': ObjectId('690769ddc4f0d63b77cebea8'),
+    '5': ObjectId('690769ddc4f0d63b77cebea9'),
+    '6': ObjectId('690769ddc4f0d63b77cebeaa'),
+    '7': ObjectId('690769ddc4f0d63b77cebeab'),
+    '8': ObjectId('690769ddc4f0d63b77cebeac'),
+    '9': ObjectId('690769ddc4f0d63b77cebead')
+  }
+}
+school> db.Students.find({},{_id:0,name:1,email:1})
+[
+  { name: 'Sarah Johnson', email: 'sarahjohnson@university.com' },
+  { name: 'michael chen', email: 'michel.chen@university.com' },
+  { name: 'Emilydavis', email: 'emilydavis@university.com' },
+  { name: 'James Wilson', email: 'jameswilson@university.com' },
+  { name: 'Olivia brown', email: 'olivia brown@university.com' },
+  { name: 'Liam Taylor', email: 'liamtaylor@university.com' },
+  { name: 'sophia lee', email: 'sophialee@university.com' },
+  { name: 'noah martinez', email: 'noahmartinez@university.com' },
+  { name: 'avakim', email: 'avakim@university.com' },
+  { name: 'ethan patel', email: 'ethanpatel@university.com' }
+]
+
+school> db.Students.find().limit(5)
+[
+  {
+    _id: ObjectId('690769ddc4f0d63b77cebea4'),
+    name: 'Sarah Johnson',
+    age: 20,
+    grade: 'A',
+    email: 'sarahjohnson@university.com'
+  },
+  {
+    _id: ObjectId('690769ddc4f0d63b77cebea5'),
+    name: 'michael chen',
+    age: 19,
+    grade: 'B+',
+    email: 'michel.chen@university.com'
+  },
+  {
+    _id: ObjectId('690769ddc4f0d63b77cebea6'),
+    name: 'Emilydavis',
+    age: 21,
+    grade: 'A-',
+    email: 'emilydavis@university.com'
+  },
+  {
+    _id: ObjectId('690769ddc4f0d63b77cebea7'),
+    name: 'James Wilson',
+    age: 22,
+    grade: 'B',
+    email: 'jameswilson@university.com'
+  },
+  {
+    _id: ObjectId('690769ddc4f0d63b77cebea8'),
+    name: 'Olivia brown',
+    age: 20,
+    grade: 'A',
+    email: 'olivia brown@university.com'
+  }
+]
+school> db.Students.find({},{_id:0,name:1,grade:1}).skip(3).limit(4)
+[
+  { name: 'James Wilson', grade: 'B' },
+  { name: 'Olivia brown', grade: 'A' },
+  { name: 'Liam Taylor', grade: 'C+' },
+  { name: 'sophia lee', grade: 'A-' }
+]
+school> db.Students.find({},{_id:0,name:1,email:1}).skip(5).limit(3)
+[
+  { name: 'Liam Taylor', email: 'liamtaylor@university.com' },
+  { name: 'sophia lee', email: 'sophialee@university.com' },
+  { name: 'noah martinez', email: 'noahmartinez@university.com' }
+]
+school>

@@ -1,0 +1,41 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 690792873b54a7bca4cebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+mongosh 2.5.9 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-27T08:10:56.824+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use online store
+switched to db online
+online> db.sales.insertMany([ {product:"Dell XPS13",category:"laptops",price:1299.99,quantity:2,date:ISODate("2025-07-01T08:00:00Z")},{product:"macbook air",category:"laptops",price:999.99,quantity:3,date:ISODate("2025-07-02T10:30:00Z")},{product:"Wireless mouse",category:"accessories",price:29.99,quantity:5,date:ISODate("2025-07-02T12:00:00Z")},{product:"Hp spectre x360",category:"laptops",price:1099.99,quantity:2,date:ISODate("2025-07-03T14:15:00Z")},{product:"macbook air",category:"laptops",price:1099.99,quantity:2,date:ISODate("2025-07-04T09:45:00Z")},{product:"bluetooth headphones",category:"accessories",price:89.99,quantity:3,date:ISODate("2025-07-05T15:30:00Z")},{product:"HPSpectre x360",category:"laptops",price:139.99,quantity:2,date:ISODate("2025-07-07T11:00:00Z")} ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6907960b3b54a7bca4cebea4'),
+    '1': ObjectId('6907960b3b54a7bca4cebea5'),
+    '2': ObjectId('6907960b3b54a7bca4cebea6'),
+    '3': ObjectId('6907960b3b54a7bca4cebea7'),
+    '4': ObjectId('6907960b3b54a7bca4cebea8'),
+    '5': ObjectId('6907960b3b54a7bca4cebea9'),
+    '6': ObjectId('6907960b3b54a7bca4cebeaa')
+  }
+}
+online> db.sales.aggregate([{  {$match:"laptops"} }, {$group:{_id:"$product",totalquantity:{$sum:"$quantity"},avgprice:{$avg:"$price"},totalrevenue:{$sum:{$multiply:["$price","$quantity"]}}  }},{$sort:{totalQuantity:-1}},{$project:{_id:0,product:"$_id",totalQuantity:1,avgprice:{$round:["$avgprice",2]},totalrevenue:{$round:["$totalrevenue",2]}} }, {$out:"laptop_sales_summary"} ]);
+Uncaught:
+SyntaxError: Unexpected token (1:23)
+
+> 1 | db.sales.aggregate([{  {$match:"laptops"} }, {$group:{_id:"$product",totalquantity:{$sum:"$quantity"},avgprice:{$avg:"$price"},totalrevenue:{$sum:{$multiply:["$price","$quantity"]}}  }},{$sort:{totalQuantity:-1}},{$project:{_id:0,product:"$_id",totalQuantity:1,avgprice:{$round:["$avgprice",2]},totalrevenue:{$round:["$totalrevenue",2]}} }, {$out:"laptop_sales_summary"} ]);
+    |                        ^
+  2 |
+
+online> db.sales.aggregate([  {$match:{category:"laptops"} }, {$group:{_id:"$product",totalQuantity:{$sum:"$quantity"},avgprice:{$avg:"$price"},totalrevenue:{$sum:{$multiply:["$price","$quantity"]}}  }},{$sort:{totalQuantity:-1}},{$project:{_id:0,product:"$_id",totalQuantity:1,avgprice:{$round:["$avgprice",2]},totalrevenue:{$round:["$totalrevenue",2]}} }, {$out:"laptop_sales_summary"} ]);

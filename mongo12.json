@@ -1,0 +1,102 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 69078755626dba381bcebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+mongosh 2.5.9 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-27T08:10:56.824+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use Onlinestore
+switched to db Onlinestore
+Onlinestore> db.books.insertMany([ {title:"The Great Gatsby",author:"F.SCOTT fITZGERALD",price:12.99,rating:4.3,genre:"Fiction"},{title:"1984",author:"George Orwell",price:99.9,rating:4.8,genre:"Dystopian"},{title:"pride and prejudice",author:"jane austen",price:7.99,rating:4.6,genre:"romance"},{title:"The Hobbit",author:"JRR Tolkien",price:14.99,rating:4.9,genre:"Fantasy"},{title:"Sapiens",author:"Yuval Noah harari",price:18.99,rating:4.7,genre:"Non-fiction"},{title:"The davinci code",author:"dan brown",price:11.99,rating:4.2,genre:"mystery"},{title:"Dune",author:"Frank Herbert",price:15.99,rating:4.8,genre:"science fiction"},{title:"The Alchemist",author:"PauloCoelho",price:10.99,rating:4.4,genre:"Fiction"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69078996626dba381bcebea4'),
+    '1': ObjectId('69078996626dba381bcebea5'),
+    '2': ObjectId('69078996626dba381bcebea6'),
+    '3': ObjectId('69078996626dba381bcebea7'),
+    '4': ObjectId('69078996626dba381bcebea8'),
+    '5': ObjectId('69078996626dba381bcebea9'),
+    '6': ObjectId('69078996626dba381bcebeaa'),
+    '7': ObjectId('69078996626dba381bcebeab')
+  }
+}
+Onlinestore> db.books.find({},{_id:0,title:1,author:1})
+[
+  { title: 'The Great Gatsby', author: 'F.SCOTT fITZGERALD' },
+  { title: '1984', author: 'George Orwell' },
+  { title: 'pride and prejudice', author: 'jane austen' },
+  { title: 'The Hobbit', author: 'JRR Tolkien' },
+  { title: 'Sapiens', author: 'Yuval Noah harari' },
+  { title: 'The davinci code', author: 'dan brown' },
+  { title: 'Dune', author: 'Frank Herbert' },
+  { title: 'The Alchemist', author: 'PauloCoelho' }
+]
+Onlinestore> db.books.find({},{_id:0,title:1,author:1,rating:1}).sort(1).limit(5)
+MongoInvalidArgumentError: Invalid sort format: 1 Sort must be a valid object
+Onlinestore> db.books.find({},{_id:0,title:1,author:1,rating:1}).sort(rating:-1).limit(5)
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:63)
+
+> 1 | db.books.find({},{_id:0,title:1,author:1,rating:1}).sort(rating:-1).limit(5)
+    |                                                                ^
+  2 |
+
+Onlinestore> db.books.find({},{_id:0,title:1,author:1,rating:1}).sort({rating:-1}).limit(5)
+[
+  { title: 'The Hobbit', author: 'JRR Tolkien', rating: 4.9 },
+  { title: 'Dune', author: 'Frank Herbert', rating: 4.8 },
+  { title: '1984', author: 'George Orwell', rating: 4.8 },
+  { title: 'Sapiens', author: 'Yuval Noah harari', rating: 4.7 },
+  { title: 'pride and prejudice', author: 'jane austen', rating: 4.6 }
+]
+Onlinestore> db.books.find({},{_id:0,title:1,price:1}).sort({price:1}).skip(3).limit(4)
+[
+  { title: 'The Great Gatsby', price: 12.99 },
+  { title: 'The Hobbit', price: 14.99 },
+  { title: 'Dune', price: 15.99 },
+  { title: 'Sapiens', price: 18.99 }
+]
+Onlinestore> db.books.find({},{_id:0,title:1,price:1}).sort({price:1}).skip(-3).limit(4)
+MongoServerError[Location51024]: BSON field 'skip' value must be >= 0, actual value '-3'
+Onlinestore> db.books.distinct("genre")
+[
+  'Dystopian',
+  'Fantasy',
+  'Fiction',
+  'Non-fiction',
+  'mystery',
+  'romance',
+  'science fiction'
+]
+Onlinestore> var mapfunction = function(){emit(this.genre,1);};
+
+Onlinestore> var reduceFunction = function(key,values){return Array.sum(values);};
+
+Onlinestore> db.books.mapReduce(mapfunction,reducefunction,{out:"genre_counts"});
+ReferenceError: reducefunction is not defined
+Onlinestore> db.books.mapReduce(mapfunction,reduceFunction,{out:"genre_counts"});
+DeprecationWarning: Collection.mapReduce() is deprecated. Use an aggregation instead.
+See https://mongodb.com/docs/manual/core/map-reduce for details.
+{ result: 'genre_counts', ok: 1 }
+Onlinestore> db.genre_counts.find();
+[
+  { _id: 'Dystopian', value: 1 },
+  { _id: 'Fiction', value: 2 },
+  { _id: 'romance', value: 1 },
+  { _id: 'Fantasy', value: 1 },
+  { _id: 'mystery', value: 1 },
+  { _id: 'science fiction', value: 1 },
+  { _id: 'Non-fiction', value: 1 }
+]
+Onlinestore>
