@@ -1,0 +1,54 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\User>mongosh
+Current Mongosh Log ID: 6908549b8208d46332cebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          7.0.25
+Using Mongosh:          2.5.8
+mongosh 2.5.9 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-27T08:10:56.824+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use store
+switched to db store
+store> db.products.insertMany([ {name:"laptop",category:"electronics",price:800,stock:15},{name:"headphones",category:"accessories",price:390,stock:23},{name:"wireless mouse",category:"accessories",price:234,stock:12},{name:"Smartphones",category:"phones",price:2000,stock:10},{name:"4k monitor",category:"monitors",price:200,stock:23},{name:"tablet X",category:"tablets",price:3000,stock:14} ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6908572b8208d46332cebea4'),
+    '1': ObjectId('6908572b8208d46332cebea5'),
+    '2': ObjectId('6908572b8208d46332cebea6'),
+    '3': ObjectId('6908572b8208d46332cebea7'),
+    '4': ObjectId('6908572b8208d46332cebea8'),
+    '5': ObjectId('6908572b8208d46332cebea9')
+  }
+}
+store> db.products.createIndex( {category:1} )
+category_1
+store> db.products.createIndex( {price:-1} )
+price_-1
+store> db.products.getIndex()
+TypeError: db.products.getIndex is not a function
+store> db.products.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { category: 1 }, name: 'category_1' },
+  { v: 2, key: { price: -1 }, name: 'price_-1' }
+]
+store> db.products.dropIndex( {category:1} )
+MongoServerError[IndexNotFound]: can't find index with key: { category: 1 }
+store> db.products.dropIndexes( {category:1} )
+MongoServerError[IndexNotFound]: can't find index with key: { category: 1 }
+store> db.products.dropIndexes()
+{
+  nIndexesWas: 2,
+  msg: 'non-_id indexes dropped for collection',
+  ok: 1
+}
+store>
